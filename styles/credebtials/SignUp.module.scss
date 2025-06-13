@@ -1,0 +1,380 @@
+// SignUp.module.scss
+.signupContainer {
+  display: grid;
+  grid-template-columns: 40% 60%;
+  min-height: 100vh;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.leftContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem 3rem;
+  background: #ffffff;
+  position: relative;
+
+  .mainHeading{
+    position: absolute;
+    top: 2rem;
+    left: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+
+    img{
+      border-radius: 50%;
+    }
+  }
+  
+  .heading {
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin-bottom: 0.9rem;
+  }
+  
+  p {
+    color: #666;
+    margin-bottom: 2rem;
+    font-size: 1rem;
+  }
+}
+
+.form {
+  width: 100%;
+  max-width: 500px;
+  align-self: center;
+  
+  .inputGroup {
+    margin-bottom: 1.5rem;
+    
+    .inputWrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+      
+      .inputIcon {
+        position: absolute;
+        left: 1rem;
+        z-index: 1;
+        color: #9ca3af;
+        transition: color 0.3s ease;
+      }
+      
+      .passwordToggle {
+        position: absolute;
+        right: 1rem;
+        background: none;
+        border: none;
+        cursor: pointer;
+        color: #9ca3af;
+        transition: color 0.3s ease;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        
+        &:hover {
+          color: #1481b9;
+        }
+        
+        &:focus {
+          outline: none;
+          color: #1481b9;
+        }
+      }
+    }
+    
+    .input {
+      width: 100%;
+      padding: 1rem 1rem 1rem 3rem;
+      border: 2px solid #e1e5e9;
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      background: #ffffff;
+      
+      &:focus {
+        outline: none;
+        border-color: #1481b9;
+        box-shadow: 0 0 0 3px rgba(20, 129, 185, 0.1);
+        
+        + .inputIcon {
+          color: #1481b9;
+        }
+      }
+      
+      &:focus ~ .inputIcon {
+        color: #1481b9;
+      }
+      
+      &::placeholder {
+        color: #9ca3af;
+      }
+      
+      &.inputError {
+        border-color: #ef4444;
+        box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+      }
+    }
+    
+    .errorMessage {
+      display: block;
+      color: #ef4444;
+      font-size: 0.875rem;
+      margin-top: 0.5rem;
+      padding-left: 0.5rem;
+      animation: slideIn 0.3s ease;
+    }
+  }
+  
+  .divider {
+    text-align: center;
+    margin: 1.5rem 0;
+    position: relative;
+    
+    &::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: #e1e5e9;
+    }
+    
+    span {
+      background: white;
+      padding: 0 1rem;
+      color: #9ca3af;
+      font-size: 0.875rem;
+    }
+  }
+  
+  .googleButton {
+    width: 100%;
+    padding: 1rem;
+    background: #ffffff;
+    color: #374151;
+    border: 2px solid #e1e5e9;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+    
+    &:hover {
+      background: #f9fafb;
+      border-color: #d1d5db;
+    }
+    
+    &:focus {
+      outline: none;
+      border-color: #1481b9;
+      box-shadow: 0 0 0 3px rgba(20, 129, 185, 0.1);
+    }
+  }
+  
+  .loginLink {
+    text-align: center;
+    color: #6b7280;
+    font-size: 0.875rem;
+    margin-top: 1rem;
+    
+    a {
+      color: #1481b9;
+      text-decoration: none;
+      font-weight: 500;
+      
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+  
+  .button {
+    width: 100%;
+    padding: 1rem;
+    background: linear-gradient(135deg, #1481b9 0%, #155a93 100%);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-bottom: 1rem;
+    
+    &:hover {
+      background: linear-gradient(135deg, #1481b9 0%, #121622 100%);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(20, 129, 185, 0.3);
+    }
+    
+    &:active {
+      transform: translateY(0);
+    }
+  }
+  
+  .error {
+    color: #ef4444;
+    font-size: 0.875rem;
+    margin-top: 0.5rem;
+    padding: 0.5rem;
+    background: #fef2f2;
+    border-radius: 4px;
+    border-left: 4px solid #ef4444;
+  }
+  
+  .success {
+    color: #10b981;
+    font-size: 0.875rem;
+    margin-top: 0.5rem;
+    padding: 0.5rem;
+    background: #f0fdf4;
+    border-radius: 4px;
+    border-left: 4px solid #10b981;
+  }
+}
+
+.rightContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: 
+    linear-gradient(135deg, #121622 0%, #155a93 50%, #1481b9 100%),
+    linear-gradient(45deg, rgba(20, 129, 185, 0.1) 0%, rgba(21, 90, 147, 0.1) 100%);
+  background-blend-mode: multiply;
+  position: relative;
+  overflow: hidden;
+  margin: 0.5rem;
+  border-bottom-left-radius: 2rem;
+  border-top-left-radius: 2rem;
+
+  svg{
+    width: 50rem;
+    z-index: 999 !important;
+  }
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+      radial-gradient(circle at 25% 75%, rgba(20, 129, 185, 0.4) 0%, transparent 50%),
+      radial-gradient(circle at 75% 25%, rgba(21, 90, 147, 0.3) 0%, transparent 50%),
+      radial-gradient(circle at 50% 50%, rgba(18, 22, 34, 0.2) 0%, transparent 70%),
+      radial-gradient(ellipse at 80% 80%, rgba(20, 129, 185, 0.2) 0%, transparent 60%);
+    animation: gradientShift 12s ease-in-out infinite alternate;
+    z-index: 1;
+  }
+  
+  &::after {
+    content: '';
+    position: absolute;
+    top: 15%;
+    left: 15%;
+    right: 15%;
+    bottom: 15%;
+    background: 
+      linear-gradient(
+        45deg,
+        transparent 30%,
+        rgba(20, 129, 185, 0.05) 50%,
+        transparent 70%
+      ),
+      repeating-linear-gradient(
+        -45deg,
+        transparent,
+        transparent 40px,
+        rgba(255, 255, 255, 0.02) 40px,
+        rgba(255, 255, 255, 0.02) 80px
+      );
+    border-radius: 30px;
+    transform: rotate(-3deg);
+    animation: float 8s ease-in-out infinite;
+    z-index: 2;
+  }
+}
+
+// Floating animation for the background pattern
+@keyframes float {
+  0%, 100% {
+    transform: rotate(-3deg) translateY(0px) scale(1);
+  }
+  50% {
+    transform: rotate(-3deg) translateY(-15px) scale(1.02);
+  }
+}
+
+// Gradient shift animation for dynamic background
+@keyframes gradientShift {
+  0% {
+    background: 
+      radial-gradient(circle at 25% 75%, rgba(20, 129, 185, 0.4) 0%, transparent 50%),
+      radial-gradient(circle at 75% 25%, rgba(21, 90, 147, 0.3) 0%, transparent 50%),
+      radial-gradient(circle at 50% 50%, rgba(18, 22, 34, 0.2) 0%, transparent 70%);
+  }
+  100% {
+    background: 
+      radial-gradient(circle at 75% 25%, rgba(20, 129, 185, 0.5) 0%, transparent 60%),
+      radial-gradient(circle at 25% 75%, rgba(21, 90, 147, 0.4) 0%, transparent 50%),
+      radial-gradient(circle at 60% 40%, rgba(18, 22, 34, 0.3) 0%, transparent 80%);
+  }
+}
+
+// Responsive design
+@media (max-width: 768px) {
+  .signupContainer {
+    grid-template-columns: 1fr;
+  }
+  
+  .leftContainer {
+    max-width: 100%;
+    padding: 2rem 1.5rem;
+  }
+  
+  .rightContainer {
+    min-height: 200px;
+  }
+}
+
+// Add animation for error messages
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Enhanced input focus states
+.form .inputGroup .inputWrapper .input:focus ~ .inputIcon,
+.form .inputGroup .inputWrapper .input:not(:placeholder-shown) ~ .inputIcon {
+  color: #1481b9;
+}
+
+// Password field specific styling
+.form .inputGroup .inputWrapper .input[type="password"],
+.form .inputGroup .inputWrapper .input[type="text"] {
+  padding-right: 3rem;
+  
+  &:focus {
+    & ~ .passwordToggle {
+      color: #1481b9;
+    }
+  }
+}

@@ -1,0 +1,254 @@
+// components/Dashboard/Dashboard.module.scss
+.dashboard {
+  margin-left: 300px;
+  padding: 2rem;
+  background-color: #f8fafc;
+  min-height: 100vh;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 2rem;
+}
+
+.welcome {
+  h1 {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #121622;
+    margin: 0 0 0.5rem 0;
+  }
+  
+  p {
+    color: #64748b;
+    margin: 0;
+    font-size: 1rem;
+  }
+}
+
+.logoutBtn {
+  background: #1481b9;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  
+  &:hover {
+    background: #189dd6;
+    transform: translateY(-1px);
+  }
+}
+
+.quickActions {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.actionCard {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: white;
+  padding: 1.5rem 2rem;
+  border-radius: 12px;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  }
+  
+  span {
+    font-weight: 500;
+    color: #121622;
+  }
+}
+
+.actionIcon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.statCard {
+  background: white;
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+  transition: all 0.2s ease;
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  }
+}
+
+.statHeader {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.statIcon {
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.statInfo {
+  h3 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #121622;
+    margin: 0 0 0.25rem 0;
+    line-height: 1;
+  }
+  
+  p {
+    color: #64748b;
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 500;
+  }
+}
+
+.teamSection {
+  background: white;
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+}
+
+.teamHeader {
+  margin-bottom: 2rem;
+  
+  h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #121622;
+    margin: 0;
+  }
+}
+
+.teamStats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.teamStatCard {
+  padding: 1.5rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  text-align: center;
+  transition: all 0.2s ease;
+  
+  &:hover {
+    border-color: #189dd6;
+    transform: translateY(-1px);
+  }
+}
+
+.statLabel {
+  color: #64748b;
+  font-size: 0.875rem;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+.statValue {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #121622;
+  margin-bottom: 0.5rem;
+}
+
+.statChange {
+  font-size: 0.875rem;
+  font-weight: 600;
+  
+  &.positive {
+    color: #10b981;
+  }
+  
+  &.negative {
+    color: #ef4444;
+  }
+}
+
+.attendanceChart {
+  h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #121622;
+    margin-bottom: 1rem;
+  }
+}
+
+.chartControls {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.select {
+  padding: 0.5rem 1rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  background: white;
+  color: #121622;
+  font-size: 0.875rem;
+  cursor: pointer;
+  
+  &:focus {
+    outline: none;
+    border-color: #189dd6;
+  }
+}
+
+.chartPlaceholder {
+  height: 300px;
+  background: #f8fafc;
+  border-radius: 12px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 1rem;
+}
+
+.chartBar {
+  width: 60px;
+  border-radius: 4px 4px 0 0;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    opacity: 0.8;
+  }
+}
