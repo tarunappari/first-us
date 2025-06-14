@@ -1,0 +1,274 @@
+// Tasks Table Styles
+.tableContainer {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+  border: 1px solid #e2e8f0;
+}
+
+.tableWrapper {
+  overflow-x: auto;
+}
+
+.tasksTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+
+  thead {
+    background: #f8fafc;
+    border-bottom: 1px solid #e2e8f0;
+
+    th {
+      padding: 1rem;
+      text-align: left;
+      font-weight: 600;
+      color: var(--deep-navy);
+      font-size: 0.875rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      border-bottom: 1px solid #e2e8f0;
+
+      &:first-child {
+        padding-left: 1.5rem;
+      }
+
+      &:last-child {
+        padding-right: 1.5rem;
+      }
+    }
+  }
+
+  tbody {
+    tr {
+      border-bottom: 1px solid #f1f5f9;
+      transition: background-color 0.2s ease;
+
+      &:hover {
+        background: #f8fafc;
+      }
+
+      &:last-child {
+        border-bottom: none;
+      }
+    }
+
+    td {
+      padding: 1rem;
+      vertical-align: middle;
+
+      &:first-child {
+        padding-left: 1.5rem;
+      }
+
+      &:last-child {
+        padding-right: 1.5rem;
+      }
+    }
+  }
+}
+
+.taskRow {
+  &:hover {
+    background: #f8fafc;
+  }
+}
+
+.taskName {
+  .taskNameContent {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .taskTitle {
+    font-weight: 600;
+    color: var(--deep-navy);
+    font-size: 0.9rem;
+  }
+}
+
+.taskDescription {
+  .descriptionContent {
+    color: #64748b;
+    font-size: 0.875rem;
+    line-height: 1.4;
+    max-width: 300px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
+.assignedTo {
+  .assigneeInfo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .assigneeAvatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--corporate-blue) 0%, var(--sky-blue) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 0.75rem;
+    color: white;
+    text-transform: uppercase;
+  }
+}
+
+.taskStatus {
+  .statusBadge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.375rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: capitalize;
+    color: white;
+    min-width: 80px;
+    justify-content: center;
+  }
+
+  .statusPending {
+    background-color: #ef4444 !important;
+  }
+
+  .statusInProgress {
+    background-color: #f59e0b !important;
+  }
+
+  .statusCompleted {
+    background-color: #10b981 !important;
+  }
+
+  .statusDefault {
+    background-color: #6b7280 !important;
+  }
+}
+
+.createdDate {
+  color: #64748b;
+  font-size: 0.875rem;
+}
+
+.actions {
+  .actionButtons {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+  }
+
+  .editBtn {
+    font-size: 0.75rem;
+    padding: 0.375rem 0.75rem;
+    height: auto;
+  }
+
+  .deleteBtn {
+    font-size: 0.75rem;
+    padding: 0.375rem 0.75rem;
+    height: auto;
+  }
+}
+
+// Loading state
+.loadingContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 2rem;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+
+  .spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid #f1f5f9;
+    border-top: 3px solid var(--corporate-blue);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 1rem;
+  }
+
+  p {
+    color: #64748b;
+    font-size: 0.875rem;
+  }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+// Empty state
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 2rem;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  text-align: center;
+
+  .emptyIcon {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    opacity: 0.5;
+  }
+
+  h3 {
+    color: var(--deep-navy);
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+
+  p {
+    color: #64748b;
+    font-size: 0.875rem;
+  }
+}
+
+// Responsive design
+@media (max-width: 768px) {
+  .tasksTable {
+    font-size: 0.8rem;
+
+    thead th,
+    tbody td {
+      padding: 0.75rem 0.5rem;
+    }
+
+    thead th:first-child,
+    tbody td:first-child {
+      padding-left: 1rem;
+    }
+
+    thead th:last-child,
+    tbody td:last-child {
+      padding-right: 1rem;
+    }
+  }
+
+  .taskDescription .descriptionContent {
+    max-width: 200px;
+  }
+
+  .actions .actionButtons {
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+}

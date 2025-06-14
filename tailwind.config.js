@@ -7,6 +7,47 @@ module.exports = {
     ],
     theme: {
       extend: {
+        colors: {
+          // Brand colors
+          'deep-navy': '#121622',
+          'corporate-blue': '#1481b9',
+          'sky-blue': '#189dd6',
+
+          // CSS variable-based colors for consistency with shadcn/ui
+          background: 'var(--background)',
+          foreground: 'var(--foreground)',
+          card: {
+            DEFAULT: 'var(--card)',
+            foreground: 'var(--card-foreground)',
+          },
+          popover: {
+            DEFAULT: 'var(--popover)',
+            foreground: 'var(--popover-foreground)',
+          },
+          primary: {
+            DEFAULT: 'var(--primary)',
+            foreground: 'var(--primary-foreground)',
+          },
+          secondary: {
+            DEFAULT: 'var(--secondary)',
+            foreground: 'var(--secondary-foreground)',
+          },
+          muted: {
+            DEFAULT: 'var(--muted)',
+            foreground: 'var(--muted-foreground)',
+          },
+          accent: {
+            DEFAULT: 'var(--accent)',
+            foreground: 'var(--accent-foreground)',
+          },
+          destructive: {
+            DEFAULT: 'var(--destructive)',
+            foreground: 'var(--destructive-foreground)',
+          },
+          border: 'var(--border)',
+          input: 'var(--input)',
+          ring: 'var(--ring)',
+        },
         keyframes: {
           "accordion-down": {
             from: { height: "0px", opacity: "0" },

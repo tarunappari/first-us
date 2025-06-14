@@ -1,0 +1,212 @@
+// Route Test Panel Styles (Development Tool)
+.routeTestPanel {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 9999;
+}
+
+.toggleButton {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: var(--corporate-blue);
+  color: white;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(20, 129, 185, 0.3);
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    background: var(--sky-blue);
+    transform: scale(1.1);
+    box-shadow: 0 6px 16px rgba(20, 129, 185, 0.4);
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+}
+
+.panel {
+  position: absolute;
+  top: 60px;
+  right: 0;
+  width: 320px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  border: 1px solid #e2e8f0;
+  overflow: hidden;
+  animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background: var(--deep-navy);
+  color: white;
+
+  h3 {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 600;
+  }
+
+  .closeButton {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.25rem;
+    cursor: pointer;
+    padding: 0.25rem;
+    border-radius: 4px;
+    transition: background 0.2s ease;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+  }
+}
+
+.currentRoute {
+  padding: 0.75rem 1rem;
+  background: #f8fafc;
+  border-bottom: 1px solid #e2e8f0;
+  font-size: 0.875rem;
+
+  .label {
+    color: #64748b;
+    font-weight: 500;
+    margin-right: 0.5rem;
+  }
+
+  .path {
+    color: var(--corporate-blue);
+    font-weight: 600;
+    font-family: monospace;
+  }
+}
+
+.routeList {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.routeItem {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  text-decoration: none;
+  color: var(--deep-navy);
+  border-bottom: 1px solid #f1f5f9;
+  transition: all 0.2s ease;
+  gap: 0.75rem;
+
+  &:hover {
+    background: #f8fafc;
+    color: var(--corporate-blue);
+  }
+
+  &.active {
+    background: var(--corporate-blue);
+    color: white;
+
+    .routePath {
+      color: rgba(255, 255, 255, 0.8);
+    }
+  }
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  .icon {
+    font-size: 1.1rem;
+    width: 20px;
+    text-align: center;
+  }
+
+  .routeLabel {
+    flex: 1;
+    font-weight: 500;
+    font-size: 0.875rem;
+  }
+
+  .routePath {
+    font-size: 0.75rem;
+    color: #64748b;
+    font-family: monospace;
+    background: #f1f5f9;
+    padding: 0.125rem 0.375rem;
+    border-radius: 4px;
+  }
+}
+
+.footer {
+  padding: 0.5rem 1rem;
+  background: #f8fafc;
+  border-top: 1px solid #e2e8f0;
+  text-align: center;
+
+  small {
+    color: #64748b;
+    font-size: 0.75rem;
+  }
+}
+
+// Responsive design
+@media (max-width: 768px) {
+  .routeTestPanel {
+    top: 10px;
+    right: 10px;
+  }
+
+  .toggleButton {
+    width: 45px;
+    height: 45px;
+    font-size: 1.25rem;
+  }
+
+  .panel {
+    width: 280px;
+    top: 55px;
+  }
+
+  .routeItem {
+    padding: 0.625rem 0.75rem;
+
+    .routeLabel {
+      font-size: 0.8rem;
+    }
+
+    .routePath {
+      font-size: 0.7rem;
+    }
+  }
+}
+
+// Hide in production (optional)
+@media (min-width: 1px) {
+  .routeTestPanel {
+    // Uncomment to hide in production
+    // display: none;
+  }
+}

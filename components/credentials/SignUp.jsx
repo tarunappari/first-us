@@ -1,11 +1,14 @@
 'use client';
 import React, { useState } from 'react';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import styles from '../../styles/credebtials/SignUp.module.scss';
 import Image from 'next/image';
 import logo from '@/public/assets/first-logo.jpeg'
 import SignupImg from '@/public/assets/credentials/signup.svg'
 
 const SignUp = () => {
+  const router = useRouter();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -136,17 +139,11 @@ const SignUp = () => {
 
     console.log('Form submitted:', formData);
     setSuccess('Signup successful!');
-    
-    // Reset form after successful submission
+
+    // Redirect to signin after successful signup
     setTimeout(() => {
-      setFormData({
-        name: '',
-        email: '',
-        password: '',
-        confirmPassword: '',
-      });
-      setSuccess('');
-    }, 2000);
+      router.push('/auth/signin');
+    }, 1500);
   };
 
   const togglePasswordVisibility = () => {
@@ -273,6 +270,10 @@ const SignUp = () => {
           <button type="submit" className={styles.button}>Sign up</button>
 
           {success && <p className={styles.success}>{success}</p>}
+
+          <div className={styles.loginLink}>
+            Already have an account? <Link href="/auth/signin">Sign in</Link>
+          </div>
         </form>
       </div>
       <div className={styles.rightContainer}>

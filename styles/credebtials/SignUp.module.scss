@@ -187,22 +187,23 @@
     color: #6b7280;
     font-size: 0.875rem;
     margin-top: 1rem;
-    
+
     a {
-      color: #1481b9;
+      color: var(--corporate-blue);
       text-decoration: none;
       font-weight: 500;
-      
+
       &:hover {
+        color: var(--sky-blue);
         text-decoration: underline;
       }
     }
   }
-  
+
   .button {
     width: 100%;
     padding: 1rem;
-    background: linear-gradient(135deg, #1481b9 0%, #155a93 100%);
+    background: linear-gradient(135deg, var(--corporate-blue) 0%, var(--deep-navy) 100%);
     color: white;
     border: none;
     border-radius: 8px;
@@ -211,9 +212,9 @@
     cursor: pointer;
     transition: all 0.3s ease;
     margin-bottom: 1rem;
-    
+
     &:hover {
-      background: linear-gradient(135deg, #1481b9 0%, #121622 100%);
+      background: linear-gradient(135deg, var(--sky-blue) 0%, var(--corporate-blue) 100%);
       transform: translateY(-2px);
       box-shadow: 0 8px 25px rgba(20, 129, 185, 0.3);
     }

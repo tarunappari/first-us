@@ -1,11 +1,14 @@
 'use client';
 import React, { useState } from 'react';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import styles from '@/styles/credebtials/SignIn.module.scss';
 import Image from 'next/image';
 import logo from '@/public/assets/first-logo.jpeg'
 import SigninImg from '@/public/assets/credentials/signup.svg'
 
 const SignIn = () => {
+  const router = useRouter();
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -89,24 +92,15 @@ const SignIn = () => {
 
     console.log('Form submitted:', { ...formData, rememberMe });
     setSuccess('Login successful!');
-    
-    // Reset form after successful submission
+
+    // Redirect to dashboard after successful login
     setTimeout(() => {
-      setFormData({
-        email: '',
-        password: '',
-      });
-      setRememberMe(false);
-      setSuccess('');
-    }, 2000);
+      router.push('/');
+    }, 1500);
   };
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
-  };
-
-  const handleRememberMe = (e) => {
-    setRememberMe(e.target.checked);
   };
 
   return (
@@ -173,6 +167,14 @@ const SignIn = () => {
 
           {/* Remember Me and Forgot Password */}
           <div className={styles.formOptions}>
+            <label className={styles.rememberMe}>
+              <input
+                type="checkbox"
+                checked={rememberMe}
+                onChange={(e) => setRememberMe(e.target.checked)}
+              />
+              Remember me
+            </label>
             <a href="/forgot-password" className={styles.forgotPassword}>
               Forgot password?
             </a>
@@ -181,6 +183,10 @@ const SignIn = () => {
           <button type="submit" className={styles.button}>Sign in</button>
 
           {success && <p className={styles.success}>{success}</p>}
+
+          <div className={styles.signupLink}>
+            Don't have an account? <Link href="/auth/signup">Sign up</Link>
+          </div>
         </form>
       </div>
       <div className={styles.rightContainer}>
