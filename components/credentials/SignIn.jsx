@@ -1,14 +1,34 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import useAuthStore from '@/store/common/authStore';
+import useUIStore from '@/store/common/uiStore';
+import { initializeStores } from '@/store';
 import styles from '@/styles/credebtials/SignIn.module.scss';
 import Image from 'next/image';
 import logo from '@/public/assets/first-logo.jpeg'
 import SigninImg from '@/public/assets/credentials/signup.svg'
+import { toast } from 'react-toastify';
 
 const SignIn = () => {
   const router = useRouter();
+
+  // Use new store architecture
+  const {
+    user,
+    isAuthenticated,
+    loading,
+    error,
+    login,
+    clearError
+  } = useAuthStore();
+
+  const {
+    showSuccessMessage,
+    showErrorMessage
+  } = useUIStore();
+
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -20,8 +40,19 @@ const SignIn = () => {
   });
 
   const [showPassword, setShowPassword] = useState(false);
-  const [success, setSuccess] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
+
+  // Redirect if already authenticated
+  useEffect(() => {
+    if (isAuthenticated) {
+      router.push('/');
+    }
+  }, [isAuthenticated, router]);
+
+  // Clear any previous errors when component mounts
+  useEffect(() => {
+    clearError();
+  }, [clearError]);
 
   // Validation functions
   const validateEmail = (email) => {
@@ -72,7 +103,7 @@ const SignIn = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     // Validate all fields
@@ -86,17 +117,40 @@ const SignIn = () => {
 
     // Check if there are any errors
     if (emailError || passwordError) {
-      setSuccess('');
       return;
     }
 
-    console.log('Form submitted:', { ...formData, rememberMe });
-    setSuccess('Login successful!');
+    try {
+      // Clear any previous errors
+      clearError();
 
-    // Redirect to dashboard after successful login
-    setTimeout(() => {
-      router.push('/');
-    }, 1500);
+      // Call the login function from new auth store
+      const result = await login({
+        email: formData.email,
+        password: formData.password,
+        rememberMe: rememberMe,
+      });
+      
+      if (result.success) {
+        // Clear form
+        setFormData({ email: '', password: '' });
+        setRememberMe(false);       
+
+        // Initialize stores based on user role
+        await initializeStores(result.user);
+
+        // Redirect to dashboard
+        router.push('/');
+        toast.success(`Welcome back, ${result.user.name || result.user.email}!`);
+      } else {
+        // Show error message if login failed
+        showErrorMessage(result.error || 'Login failed. Please try again.');
+      }
+    } catch (err) {
+      // Handle unexpected errors
+      console.error('Login error:', err);
+      showErrorMessage(err.message || 'An unexpected error occurred. Please try again.');
+    }
   };
 
   const togglePasswordVisibility = () => {
@@ -127,6 +181,7 @@ const SignIn = () => {
                 value={formData.email}
                 onChange={handleChange}
                 className={`${styles.input} ${errors.email ? styles.inputError : ''}`}
+                disabled={loading}
               />
             </div>
             {errors.email && <span className={styles.errorMessage}>{errors.email}</span>}
@@ -145,11 +200,13 @@ const SignIn = () => {
                 value={formData.password}
                 onChange={handleChange}
                 className={`${styles.input} ${errors.password ? styles.inputError : ''}`}
+                disabled={loading}
               />
               <button
                 type="button"
                 className={styles.passwordToggle}
                 onClick={togglePasswordVisibility}
+                disabled={loading}
               >
                 {showPassword ? (
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -172,6 +229,7 @@ const SignIn = () => {
                 type="checkbox"
                 checked={rememberMe}
                 onChange={(e) => setRememberMe(e.target.checked)}
+                disabled={loading}
               />
               Remember me
             </label>
@@ -180,9 +238,35 @@ const SignIn = () => {
             </a>
           </div>
 
-          <button type="submit" className={styles.button}>Sign in</button>
+          <button
+            type="submit"
+            className={styles.button}
+            disabled={loading}
+          >
+            {loading ? (
+              <span className={styles.loadingText}>
+                <svg className={styles.spinner} width="20" height="20" viewBox="0 0 24 24">
+                  <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" strokeDasharray="31.416" strokeDashoffset="31.416">
+                    <animate attributeName="stroke-dasharray" dur="2s" values="0 31.416;15.708 15.708;0 31.416" repeatCount="indefinite"/>
+                    <animate attributeName="stroke-dashoffset" dur="2s" values="0;-15.708;-31.416" repeatCount="indefinite"/>
+                  </circle>
+                </svg>
+                Signing in...
+              </span>
+            ) : (
+              'Sign in'
+            )}
+          </button>
 
-          {success && <p className={styles.success}>{success}</p>}
+          {/* Show backend error */}
+          {error && (
+            <div className={styles.error}>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" fill="currentColor"/>
+              </svg>
+              {error}
+            </div>
+          )}
 
           <div className={styles.signupLink}>
             Don't have an account? <Link href="/auth/signup">Sign up</Link>

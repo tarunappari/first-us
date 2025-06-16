@@ -1,7 +1,9 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import useAuthStore from '@/store/common/authStore';
+import useUIStore from '@/store/common/uiStore';
 import styles from '../../styles/credebtials/SignUp.module.scss';
 import Image from 'next/image';
 import logo from '@/public/assets/first-logo.jpeg'
@@ -9,6 +11,20 @@ import SignupImg from '@/public/assets/credentials/signup.svg'
 
 const SignUp = () => {
   const router = useRouter();
+
+  // Use new store architecture
+  const {
+    loading,
+    error,
+    register,
+    clearError
+  } = useAuthStore();
+
+  const {
+    showSuccessMessage,
+    showErrorMessage
+  } = useUIStore();
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -25,7 +41,11 @@ const SignUp = () => {
 
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [success, setSuccess] = useState('');
+
+  // Clear any previous errors when component mounts
+  useEffect(() => {
+    clearError();
+  }, [clearError]);
 
   // Validation functions
   const validateName = (name) => {
@@ -115,7 +135,7 @@ const SignUp = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     // Validate all fields
@@ -133,17 +153,46 @@ const SignUp = () => {
 
     // Check if there are any errors
     if (nameError || emailError || passwordError || confirmPasswordError) {
-      setSuccess('');
       return;
     }
 
-    console.log('Form submitted:', formData);
-    setSuccess('Signup successful!');
+    try {
+      // Clear any previous errors
+      clearError();
 
-    // Redirect to signin after successful signup
-    setTimeout(() => {
-      router.push('/auth/signin');
-    }, 1500);
+      // Call the register function from new auth store
+      const result = await register({
+        name: formData.name,
+        email: formData.email,
+        password: formData.password,
+        confirmPassword: formData.confirmPassword,
+      });
+
+      if (result.success) {
+        // Clear form
+        setFormData({
+          name: '',
+          email: '',
+          password: '',
+          confirmPassword: '',
+        });
+
+        // Show success notification
+        showSuccessMessage('Registration successful! Please sign in with your credentials.');
+
+        // Redirect to signin after successful signup
+        setTimeout(() => {
+          router.push('/auth/signin');
+        }, 1500);
+      } else {
+        // Show error message if registration failed
+        showErrorMessage(result.error || 'Registration failed. Please try again.');
+      }
+    } catch (err) {
+      // Handle unexpected errors
+      console.error('Registration error:', err);
+      showErrorMessage(err.message || 'An unexpected error occurred. Please try again.');
+    }
   };
 
   const togglePasswordVisibility = () => {
@@ -267,9 +316,19 @@ const SignUp = () => {
             {errors.confirmPassword && <span className={styles.errorMessage}>{errors.confirmPassword}</span>}
           </div>
 
-          <button type="submit" className={styles.button}>Sign up</button>
+          <button type="submit" className={styles.button} disabled={loading}>
+            {loading ? 'Creating Account...' : 'Sign up'}
+          </button>
 
-          {success && <p className={styles.success}>{success}</p>}
+          {/* Show backend error */}
+          {error && (
+            <div className={styles.error}>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" fill="currentColor"/>
+              </svg>
+              {error}
+            </div>
+          )}
 
           <div className={styles.loginLink}>
             Already have an account? <Link href="/auth/signin">Sign in</Link>

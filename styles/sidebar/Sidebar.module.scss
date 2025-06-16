@@ -59,11 +59,24 @@
     }
 
     h1 {
-      margin: 0;
+      margin: 0 0 0.25rem 0;
       font-size: 1.375rem;
       font-weight: 700;
       color: var(--deep-navy);
       letter-spacing: -0.025em;
+    }
+
+    .roleIndicator {
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      padding: 0.25rem 0.5rem;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.8);
+      border: 1px solid currentColor;
+      display: inline-block;
+      margin-top: 0.25rem;
     }
   }
 }

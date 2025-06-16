@@ -2,6 +2,7 @@
 "use client"
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import useAuthStore from '@/store/common/authStore';
 import styles from '@/styles/sidebar/Sidebar.module.scss';
 import logo from '@/public/assets/first-logo.jpeg';
 import Image from 'next/image';
@@ -64,17 +65,77 @@ const LogoutIcon = () => (
   </svg>
 );
 
+// Additional icons for role-specific features
+const ReportsIcon = () => (
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+    <polyline points="14,2 14,8 20,8"/>
+    <line x1="16" y1="13" x2="8" y2="13"/>
+    <line x1="16" y1="17" x2="8" y2="17"/>
+    <polyline points="10,9 9,9 8,9"/>
+  </svg>
+);
+
+const SettingsIcon = () => (
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <circle cx="12" cy="12" r="3"/>
+    <path d="M12 1v6m0 6v6m11-7h-6m-6 0H1m15.5-3.5L19 4l-1.5 1.5M5 20l1.5-1.5L5 17m0-11l1.5 1.5L5 6"/>
+  </svg>
+);
+
+const ProfileIcon = () => (
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+    <circle cx="12" cy="7" r="4"/>
+  </svg>
+);
+
 const Sidebar = () => {
   const pathname = usePathname();
+  const { user, logout } = useAuthStore();
 
-  const menuItems = [
-    { href: '/', label: 'Dashboard', icon: DashboardIcon },
-    { href: '/tasks-management', label: 'Tasks Management', icon: TasksIcon },
-    { href: '/employee-management', label: 'Employee Management', icon: EmployeeIcon },
-    { href: '/user-management', label: 'User Management', icon: UserIcon },
-    { href: '/jobs-posting', label: 'Job Posting', icon: JobsIcon },
-    { href: '/time-attendance', label: 'Time & Attendance', icon: TimeIcon },
-  ];
+  // Get user role (default to 'user' if not authenticated or no role)
+  const userRole = user?.role;
+
+  // Define menu items for each role
+  const getMenuItemsByRole = (role) => {
+    const commonItems = [
+      { href: '/', label: 'Dashboard', icon: DashboardIcon },
+    ];
+
+    switch (role) {
+      case 'admin':
+        return [
+          ...commonItems,
+          { href: '/tasks-management', label: 'Tasks Management', icon: TasksIcon },
+          { href: '/employee-management', label: 'Employee Management', icon: EmployeeIcon },
+          { href: '/user-management', label: 'User Management', icon: UserIcon },
+          { href: '/jobs-posting', label: 'Job Posting', icon: JobsIcon },
+          { href: '/time-attendance', label: 'Time & Attendance', icon: TimeIcon },
+          { href: '/reports', label: 'Reports & Analytics', icon: ReportsIcon },
+          { href: '/settings', label: 'System Settings', icon: SettingsIcon },
+        ];
+
+      case 'employer':
+        return [
+          ...commonItems,
+          { href: '/tasks-management', label: 'My Tasks', icon: TasksIcon },
+          { href: '/jobs-posting', label: 'Job Posting', icon: JobsIcon },
+          { href: '/time-attendance', label: 'Time & Attendance', icon: TimeIcon },
+        ];
+
+      case 'user':
+      default:
+        return [
+          ...commonItems,
+          { href: '/my-tasks', label: 'My Tasks', icon: TasksIcon },
+          { href: '/time-attendance', label: 'Time Tracking', icon: TimeIcon },
+          { href: '/profile', label: 'My Profile', icon: ProfileIcon },
+        ];
+    }
+  };
+
+  const menuItems = getMenuItemsByRole(userRole);
 
   const isActive = (href) => {
     if (href === '/') {
@@ -82,6 +143,31 @@ const Sidebar = () => {
     }
     return pathname.startsWith(href);
   };
+
+  // Handle logout
+  const handleLogout = async () => {
+    try {
+      await logout();
+      showSuccessMessage('Logged out successfully');
+    } catch (error) {
+      showErrorMessage('Logout failed');
+    }
+  };
+
+  // Get role display name and color
+  const getRoleInfo = (role) => {
+    switch (role) {
+      case 'admin':
+        return { display: 'Administrator', color: '#ef4444' };
+      case 'employer':
+        return { display: 'Employer', color: '#f59e0b' };
+      case 'user':
+      default:
+        return { display: 'User', color: '#10b981' };
+    }
+  };
+
+  const roleInfo = getRoleInfo(userRole);
 
   return (
     <div className={styles.sidebar}>
@@ -91,7 +177,10 @@ const Sidebar = () => {
         </div>
         <div className={styles.logoText}>
           <h2>Welcome back</h2>
-          <h1>Pavan</h1>
+          <h1>{user?.name || 'User'}</h1>
+          <span className={styles.roleIndicator} style={{ color: roleInfo.color }}>
+            {roleInfo.display}
+          </span>
         </div>
       </div>
       
@@ -125,10 +214,16 @@ const Sidebar = () => {
           </svg>
         </div>
         <div className={styles.userDetails}>
-          <span className={styles.userName}>Pavan Kumar</span>
-          <span className={styles.userRole}>Administrator</span>
+          <span className={styles.userName}>{user?.name || 'User Name'}</span>
+          <span className={styles.userRole} style={{ color: roleInfo.color }}>
+            {roleInfo.display}
+          </span>
         </div>
-        <button className={styles.logoutBtn} title="Sign out">
+        <button
+          className={styles.logoutBtn}
+          title="Sign out"
+          onClick={handleLogout}
+        >
           <LogoutIcon />
         </button>
       </div>

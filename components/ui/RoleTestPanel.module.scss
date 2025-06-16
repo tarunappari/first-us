@@ -1,0 +1,132 @@
+// components/ui/RoleTestPanel.module.scss
+
+.roleTestPanel {
+  background: var(--pure-white);
+  border: 1px solid var(--border-gray);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin: 1rem 0;
+  box-shadow: 0 2px 8px rgba(18, 22, 34, 0.08);
+
+  h3 {
+    margin: 0 0 1rem 0;
+    color: var(--deep-navy);
+    font-size: 1.25rem;
+    font-weight: 600;
+  }
+
+  p {
+    margin: 0.5rem 0;
+    color: var(--text-secondary);
+    
+    strong {
+      color: var(--deep-navy);
+    }
+  }
+}
+
+.roleButtons {
+  margin: 1.5rem 0;
+
+  h4 {
+    margin: 0 0 1rem 0;
+    color: var(--deep-navy);
+    font-size: 1rem;
+    font-weight: 600;
+  }
+
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.roleBtn {
+  padding: 0.75rem 1rem;
+  border: 2px solid;
+  border-radius: 8px;
+  background: var(--pure-white);
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.25s ease;
+  text-align: left;
+
+  &:hover:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    background: var(--background-light);
+  }
+
+  &.admin {
+    border-color: #ef4444;
+    color: #ef4444;
+
+    &:hover:not(:disabled) {
+      background: #ef4444;
+      color: white;
+    }
+  }
+
+  &.employer {
+    border-color: #f59e0b;
+    color: #f59e0b;
+
+    &:hover:not(:disabled) {
+      background: #f59e0b;
+      color: white;
+    }
+  }
+
+  &.user {
+    border-color: #10b981;
+    color: #10b981;
+
+    &:hover:not(:disabled) {
+      background: #10b981;
+      color: white;
+    }
+  }
+
+  &.logout {
+    border-color: #6b7280;
+    color: #6b7280;
+
+    &:hover:not(:disabled) {
+      background: #6b7280;
+      color: white;
+    }
+  }
+}
+
+.instructions {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border-gray);
+
+  h4 {
+    margin: 0 0 1rem 0;
+    color: var(--deep-navy);
+    font-size: 1rem;
+    font-weight: 600;
+  }
+
+  ul {
+    margin: 0;
+    padding-left: 1.5rem;
+    color: var(--text-secondary);
+
+    li {
+      margin: 0.5rem 0;
+      line-height: 1.5;
+
+      strong {
+        color: var(--deep-navy);
+      }
+    }
+  }
+}

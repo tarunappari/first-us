@@ -1,0 +1,146 @@
+// components/ui/NetworkDiagnostic.module.scss
+
+.diagnostic {
+  background: var(--pure-white);
+  border: 1px solid var(--border-gray);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin: 1rem 0;
+  box-shadow: 0 2px 8px rgba(18, 22, 34, 0.08);
+
+  h3 {
+    margin: 0 0 1rem 0;
+    color: var(--deep-navy);
+    font-size: 1.25rem;
+    font-weight: 600;
+  }
+
+  h4 {
+    margin: 1rem 0 0.5rem 0;
+    color: var(--deep-navy);
+    font-size: 1rem;
+    font-weight: 600;
+  }
+}
+
+.actions {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.diagnosticBtn,
+.testBtn {
+  padding: 0.75rem 1rem;
+  border: 2px solid var(--corporate-blue);
+  border-radius: 8px;
+  background: var(--pure-white);
+  color: var(--corporate-blue);
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.25s ease;
+
+  &:hover:not(:disabled) {
+    background: var(--corporate-blue);
+    color: white;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(20, 129, 185, 0.3);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    background: var(--background-light);
+    border-color: var(--text-secondary);
+    color: var(--text-secondary);
+  }
+}
+
+.testBtn {
+  border-color: var(--sky-blue);
+  color: var(--sky-blue);
+
+  &:hover:not(:disabled) {
+    background: var(--sky-blue);
+    color: white;
+  }
+}
+
+.results {
+  margin: 1.5rem 0;
+  padding: 1rem;
+  background: var(--background-light);
+  border-radius: 8px;
+}
+
+.result {
+  padding: 0.75rem;
+  margin: 0.5rem 0;
+  border-radius: 6px;
+  border-left: 4px solid;
+  font-size: 0.9rem;
+
+  &.success {
+    background: #f0fdf4;
+    border-color: #10b981;
+    color: #065f46;
+
+    &::before {
+      content: '✅ ';
+    }
+  }
+
+  &.error {
+    background: #fef2f2;
+    border-color: #ef4444;
+    color: #991b1b;
+
+    &::before {
+      content: '❌ ';
+    }
+  }
+
+  strong {
+    color: inherit;
+  }
+
+  span {
+    font-size: 0.8rem;
+    opacity: 0.8;
+  }
+}
+
+.troubleshooting {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border-gray);
+
+  ol {
+    margin: 0.5rem 0;
+    padding-left: 1.5rem;
+    color: var(--text-secondary);
+
+    li {
+      margin: 0.5rem 0;
+      line-height: 1.5;
+
+      strong {
+        color: var(--deep-navy);
+      }
+    }
+  }
+}
+
+.code {
+  background: #1f2937;
+  color: #f9fafb;
+  padding: 1rem;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  line-height: 1.4;
+  overflow-x: auto;
+  margin: 0.5rem 0;
+  font-family: 'Courier New', monospace;
+}
