@@ -7,7 +7,7 @@ import useUIStore from '@/store/common/uiStore';
 import { initializeStores } from '@/store';
 import styles from '@/styles/credebtials/SignIn.module.scss';
 import Image from 'next/image';
-import logo from '@/public/assets/first-logo.jpeg'
+import logo from '@/public/assets/firstus-logo.png'
 import SigninImg from '@/public/assets/credentials/signup.svg'
 import { toast } from 'react-toastify';
 

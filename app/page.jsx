@@ -10,20 +10,15 @@ export default function Home() {
   const router = useRouter();
   const { user,logout } = useAuthStore();
 
-  useEffect(() => {
-    if (!user) {
-      router.push('/auth/signin');
-    }
-  }, [user, router]);
+  // useEffect(() => {
+  //   if (!user) {
+  //     router.push('/auth/signin');
+  //   }
+  // }, [user, router]);
 
   return (
     <div>
       <Sidebar />
-      {/* <div style={{ marginLeft: '300px', padding: '2rem' }}>
-        <NetworkDiagnostic />
-        <QuickLogin />
-        <RoleTestPanel />
-      </div> */}
       <Dashboard />
     </div>
   );

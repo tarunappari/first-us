@@ -95,7 +95,7 @@ const Sidebar = () => {
   const { user, logout } = useAuthStore();
 
   // Get user role (default to 'user' if not authenticated or no role)
-  const userRole = user?.role;
+  const userRole = 'admin' || user?.role;
 
   // Define menu items for each role
   const getMenuItemsByRole = (role) => {
