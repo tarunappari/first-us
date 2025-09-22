@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import useAuthStore from '@/store/common/authStore';
 import styles from '@/styles/sidebar/Sidebar.module.scss';
-import logo from '@/public/assets/first-logo.jpeg';
+import logo from '@/public/assets/MAT.jpeg';
 import Image from 'next/image';
 
 // Icon components using SVG for professional look
