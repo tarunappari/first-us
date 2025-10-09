@@ -176,11 +176,11 @@ const Sidebar = () => {
           <Image src={logo} alt='logo' width={72} />
         </div>
         <div className={styles.logoText}>
-          <h2>Welcome back</h2>
-          <h1>{user?.name || 'User'}</h1>
+          <h1>Merit American Technologies</h1>
+          {/* <h1>{user?.name || 'User'}</h1>
           <span className={styles.roleIndicator} style={{ color: roleInfo.color }}>
             {roleInfo.display}
-          </span>
+          </span> */}
         </div>
       </div>
       
